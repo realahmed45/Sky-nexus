@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Registration from "./components/Users/Register";
 import Login from "./components/Users/Login";
 
-import PrivateNavbar from "./components/Navbar/PrivateNavbar";
 import PublicNavbar from "./components/Navbar/PublicNavbar";
 import Home from "./components/Home/Home";
 import { useAuth } from "./AuthContext/AuthContext";
@@ -13,8 +12,6 @@ import Services from "./components/Services/services";
 import Footer from "./components/Footer/footer";
 
 export default function App() {
-  const { isAuthenticated } = useAuth();
-
   useEffect(() => {
     var Tawk_API = Tawk_API || {},
       Tawk_LoadStart = new Date();
@@ -32,7 +29,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <>
-        {isAuthenticated ? <PrivateNavbar /> : <PublicNavbar />}
+        <PublicNavbar />
         <Routes>
           <Route path="/register" element={<Registration />} />
           <Route path="/login" element={<Login />} />

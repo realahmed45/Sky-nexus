@@ -1,14 +1,8 @@
 import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { PlusIcon } from "@heroicons/react/20/solid";
-import { FiLogOut } from "react-icons/fi";
-import { FaCreativeCommonsShare } from "react-icons/fa6";
-import { FaStore } from "react-icons/fa"; // Importing store icon
 import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { logoutAPI } from "../../apis/user/userAPI";
-import { useAuth } from "../../AuthContext/AuthContext";
+import { FaCreativeCommonsShare } from "react-icons/fa6";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -16,21 +10,7 @@ const navigation = [
   { name: "About", href: "/about", current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export default function PublicNavbar() {
-  // auth custom hook
-  const { logout } = useAuth();
-  // mutation
-  const mutation = useMutation({ mutationFn: logoutAPI });
-  // handle logout
-  const handleLogout = () => {
-    mutation.mutate();
-    logout();
-  };
-
   return (
     <Disclosure as="nav" className="bg-white">
       {({ open }) => (
@@ -61,12 +41,11 @@ export default function PublicNavbar() {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={classNames(
+                    className={`rounded-md px-3 py-2 text-base font-medium ${
                       item.current
                         ? "bg-white text-orange-500"
-                        : "text-gray-900 hover:bg-orange-500 hover:text-white",
-                      "rounded-md px-3 py-2 text-base font-medium"
-                    )}
+                        : "text-gray-900 hover:bg-orange-500 hover:text-white"
+                    }`}
                     aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
@@ -83,12 +62,11 @@ export default function PublicNavbar() {
                   key={item.name}
                   as="a"
                   href={item.href}
-                  className={classNames(
+                  className={`block rounded-md px-3 py-2 text-base font-medium ${
                     item.current
                       ? "bg-white text-orange-500"
-                      : "text-gray-900 hover:bg-orange-500 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
+                      : "text-gray-900 hover:bg-orange-500 hover:text-white"
+                  }`}
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
